@@ -13,7 +13,9 @@
 2. Run locally: `docker run -p 8080:80 --env-file .env pos`
 3. Render setup: Create a new Web Service from the Dockerfile and set the service port to `80`.
 4. Set required environment variables in Render: `APP_KEY`, `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL`, and your `DB_*` values.
-5. Optional after first deploy: run `php artisan migrate --force` and `php artisan storage:link` from the Render shell.
+5. For PostgreSQL on Render, set `DB_CONNECTION=pgsql`, `DB_HOST`, `DB_PORT=5432`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`.
+6. Optional: set `RUN_MIGRATIONS=true` to run `migrate` + `db:seed` on container start.
+7. Optional after first deploy: run `php artisan storage:link` from the Render shell.
 
 ## About Laravel
 

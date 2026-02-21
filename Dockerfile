@@ -12,6 +12,7 @@ RUN apt-get update \
         libfreetype6-dev \
         libzip-dev \
         libonig-dev \
+        libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         bcmath \
@@ -19,6 +20,7 @@ RUN apt-get update \
         gd \
         mbstring \
         pdo_mysql \
+        pdo_pgsql \
         zip \
     && rm -rf /var/lib/apt/lists/*
 
@@ -52,6 +54,7 @@ RUN apt-get update \
         libfreetype6-dev \
         libzip-dev \
         libonig-dev \
+        libpq-dev \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install \
         bcmath \
@@ -59,6 +62,7 @@ RUN apt-get update \
         gd \
         mbstring \
         pdo_mysql \
+        pdo_pgsql \
         zip \
     && a2enmod rewrite headers \
     && rm -rf /var/lib/apt/lists/*
@@ -78,5 +82,6 @@ RUN mkdir -p /var/www/storage/framework/cache \\
     /var/www/storage/logs \\
     && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
+ENV RUN_MIGRATIONS=false
 EXPOSE 80
-CMD ["apache2-foreground"]
+CMD ["sh", "-c", "if [ \"$RUN_MIGRATIONS\" = \"true\" ]; then php artisan migrate --force && php artisan db:seed --force || true; php artisan config:clear && php artisan config:cache; fi; apache2-foreground"]
