@@ -7,6 +7,14 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Docker (Render)
+
+1. Build the image: `docker build -t pos .`
+2. Run locally: `docker run -p 8080:80 --env-file .env pos`
+3. Render setup: Create a new Web Service from the Dockerfile and set the service port to `80`.
+4. Set required environment variables in Render: `APP_KEY`, `APP_ENV=production`, `APP_DEBUG=false`, `APP_URL`, and your `DB_*` values.
+5. Optional after first deploy: run `php artisan migrate --force` and `php artisan storage:link` from the Render shell.
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
