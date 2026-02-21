@@ -76,10 +76,10 @@ RUN sed -ri 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
 COPY --from=php-builder /app /var/www
 COPY --from=assets /app/public /var/www/public
 
-RUN mkdir -p /var/www/storage/framework/cache \\
-    /var/www/storage/framework/sessions \\
-    /var/www/storage/framework/views \\
-    /var/www/storage/logs \\
+RUN mkdir -p /var/www/storage/framework/cache \
+    /var/www/storage/framework/sessions \
+    /var/www/storage/framework/views \
+    /var/www/storage/logs \
     && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
 ENV RUN_MIGRATIONS=false
