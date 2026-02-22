@@ -158,7 +158,7 @@ return [
     |
     */
 
-    'providers' => ServiceProvider::defaultProviders()->merge([
+    'providers' => ServiceProvider::defaultProviders()->merge(array_filter([
         Brotzka\DotenvEditor\DotenvEditorServiceProvider::class,
 
         /*
@@ -167,7 +167,9 @@ return [
         Spatie\Permission\PermissionServiceProvider::class,
         Spatie\JsonApiPaginate\JsonApiPaginateServiceProvider::class,
         Prettus\Repository\Providers\RepositoryServiceProvider::class,
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        class_exists(Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class)
+            ? Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class
+            : null,
         Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
@@ -177,7 +179,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-    ])->toArray(),
+    ]))->toArray(),
 
     /*
     |--------------------------------------------------------------------------
