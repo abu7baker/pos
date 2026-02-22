@@ -29,7 +29,8 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --prefer-dist --no-interaction --no-progress --optimize-autoloader --no-scripts
 
 COPY . .
-RUN composer dump-autoload --no-dev --optimize \
+RUN mkdir -p /app/bootstrap/cache /app/storage/framework/cache \
+    && composer dump-autoload --no-dev --optimize \
     && php artisan package:discover --ansi
 
 
